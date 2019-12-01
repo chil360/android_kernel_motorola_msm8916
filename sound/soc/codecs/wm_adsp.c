@@ -1857,6 +1857,7 @@ out_async:
 	}
 
 out_fw:
+	regmap_async_complete(regmap);
 	release_firmware(firmware);
 	wm_adsp_buf_free(&buf_list);
 out:
@@ -3169,14 +3170,6 @@ int wm_adsp_stream_start2(struct wm_adsp *adsp)
 	adsp_dbg(adsp, "Set watermark to %u\n", adsp->capt_watermark2);
 
 	return 0;
-
-out_fw:
-	regmap_async_complete(regmap);
-	release_firmware(firmware);
-	wm_adsp_buf_free(&buf_list);
-out:
-	kfree(file);
-	return ret;
 }
 EXPORT_SYMBOL_GPL(wm_adsp_stream_start2);
 
